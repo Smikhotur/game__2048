@@ -1,0 +1,19 @@
+.board {
+  background: hsl(152, 76%, 80%);
+  padding: 20px;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+    &-body {
+      background: #ad9d8f;
+      width: max-content;
+      padding: 5px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    &-row {
+      display: flex;
+    }
+}
