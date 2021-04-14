@@ -5,18 +5,14 @@ import cloneDeep from 'lodash/cloneDeep';
 import { rotateLeft, rotateRight } from './boardLogic';
 import getNewPosition from './helpers';
 import './App.scss';
-import { Game } from './components/Game/Game';
 
-function App() {
+export const App = () => {
   const INITIAL_DATA = [
     [null, null, null, null],
     [null, null, null, null],
     [null, null, null, null],
     [null, null, null, null],
   ]
-  const WIN = 'win';
-  const GAME_OVER = 'gameover';
-  const PLAYING = 'playing';
 
   const [data, setData] = useLocalStorage("initial", INITIAL_DATA);
   const [score, setScore] = useLocalStorage("score", 0);
@@ -25,7 +21,6 @@ function App() {
   const [win, setWin] = useLocalStorage("win", false);
   const [history, setHistory] = useLocalStorage("history", []);
   const [scorelist, setScoreList] = useLocalStorage("scorelist", []);
-  const [overlay, setOverlay] = useLocalStorage("overlay", PLAYING);
 
   const initBoard = () => {
     let board = cloneDeep(data);
@@ -79,10 +74,6 @@ function App() {
 
   const handleLeft = (checkDead = true) => {
     let oldData = cloneDeep(data);
-    if (win) {
-      setOverlay(true);
-      return;
-    }
 
     let newData = cloneDeep(data).map(item => shiftLeft(item));
     if (boardMoved(oldData, newData)) {
@@ -90,11 +81,9 @@ function App() {
       if (flatted(newData).includes(2048)) {
         setWin(true);
         setData(newData);
-        setOverlay(WIN)
         return;
       } else placeRandom(newData);
     } else if (!flatted(oldData).includes(null) && checkDead && checkForGameOver(newData)) {
-      setOverlay(GAME_OVER)
       setGameOver(true);
     }
     if (checkDead) {
@@ -122,7 +111,6 @@ function App() {
   const handleRight = (checkDead = true) => {
     let oldData = data;
     if (win) {
-      setOverlay(true);
       return;
     }
 
@@ -132,11 +120,9 @@ function App() {
       if (flatted(newData).includes(2048)) {
         setWin(true);
         setData(newData);
-        setOverlay(WIN)
         return;
       } else placeRandom(newData);
     } else if (!flatted(oldData).includes(null) && checkDead && checkForGameOver(newData)) {
-      setOverlay(GAME_OVER)
       setGameOver(true);
     }
     if (checkDead) {
@@ -147,10 +133,6 @@ function App() {
 
   const handleUp = (checkDead = true) => {
     let oldData = cloneDeep(data);
-    if (win) {
-      setOverlay(true);
-      return;
-    }
 
     let newData = cloneDeep(data);
     newData = rotateLeft(rotateRight(newData).map(item => shiftRight(item)));
@@ -159,11 +141,9 @@ function App() {
       if (flatted(newData).includes(2048)) {
         setWin(true);
         setData(newData);
-        setOverlay(WIN);
         return
       } else placeRandom(newData);
     } else if (!flatted(oldData).includes(null) && checkDead && checkForGameOver(newData)) {
-      setOverlay(GAME_OVER);
       setGameOver(true);
     }
     if (checkDead) {
@@ -174,10 +154,6 @@ function App() {
 
   const handleDown = (checkDead = true) => {
     let oldData = cloneDeep(data);
-    if (win) {
-      setOverlay(true);
-      return;
-    }
 
     let newData = cloneDeep(data);
     newData = rotateLeft(rotateRight(newData).map(item => shiftLeft(item)));
@@ -186,11 +162,9 @@ function App() {
       if (flatted(newData).includes(2048)) {
         setWin(true);
         setData(newData);
-        setOverlay(WIN)
         return;
       } else placeRandom(newData);
     } else if (!flatted(oldData).includes(null) && checkDead && checkForGameOver(newData)) {
-      setOverlay(GAME_OVER);
       setGameOver(true);
     }
     if (checkDead) {
@@ -230,16 +204,9 @@ function App() {
     setScoreList([...scorelist, score]);
     setHistory([]);
     setGameOver(false);
-    setOverlay(PLAYING);
     setRestart(true);
     setScore(0);
     setData(INITIAL_DATA);
-  }
-
-  const onClickKeepGoing = () => {
-    setOverlay(PLAYING);
-    setData(data);
-    setWin(false);
   }
 
   const checkForGameOver = data => {
@@ -255,30 +222,15 @@ function App() {
   return (
     <div>
       <div className="App">
-        {win || gameOver
-
-          ?
-
-          <Game
-            onClickNewGame={onClickNewGame}
-            overlay={overlay}
-            onClickKeepGoing={onClickKeepGoing} />
-          :
-          <>
-            <Board
-              data={data}
-              score={score}
-              onClickNewGame={onClickNewGame}
-              initBoard={initBoard}
-            />
-            <div className="app__contents">
-
-            </div>
-          </>
-        }
+        <Board
+          data={data}
+          score={score}
+          onClickNewGame={onClickNewGame}
+          initBoard={initBoard}
+          win={win}
+          gameOver={gameOver}
+        />
       </div>
     </div>
   );
 }
-
-export default App;

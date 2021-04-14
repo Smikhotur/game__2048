@@ -5,7 +5,9 @@ import './Board.scss';
 export const Board = ({
 	data,
 	score,
-	onClickNewGame
+	onClickNewGame,
+	win,
+	gameOver,
 }) => {
 	return (
 		<div className="board">
@@ -39,6 +41,10 @@ export const Board = ({
 					);
 				})}
 			</div>
+			<div className="finish">
+          {win && <span>Winner! Congrats! You did it!</span>}
+          {gameOver && <span>Game over</span>}
+      </div>
 		</div>
 	)
 }

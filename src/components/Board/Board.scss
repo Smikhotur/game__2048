@@ -17,3 +17,17 @@
       display: flex;
     }
 }
+
+.finish {
+  width: 350px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-size: 24px;
+  color: #f9f6f2;
+  background: hsl(46, 84%, 55%);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
+}
