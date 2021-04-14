@@ -4,6 +4,7 @@ import useLocalStorage from './useLocalStorage';
 import cloneDeep from 'lodash/cloneDeep';
 import { rotateLeft, rotateRight } from './boardLogic';
 import getNewPosition from './helpers';
+import { useSwipeable } from "react-swipeable";
 import './App.scss';
 
 export const App = () => {
@@ -200,6 +201,15 @@ export const App = () => {
     };
   });
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleLeft(),
+    onSwipedRight: () => handleRight(),
+    onSwipedUp: () => handleUp(),
+    onSwipedDown: () => handleDown(),
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
   const onClickNewGame = () => {
     setScoreList([...scorelist, score]);
     setHistory([]);
@@ -220,7 +230,7 @@ export const App = () => {
   };
 
   return (
-    <div>
+    <div {...handlers}>
       <div className="App">
         <Board
           data={data}
