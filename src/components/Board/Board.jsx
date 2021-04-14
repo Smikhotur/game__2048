@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tile } from '../Tile/Tile';
 import './Board.scss';
 
@@ -42,10 +43,18 @@ export const Board = ({
 				})}
 			</div>
 			<div className="finish">
-				  {!win && !gameOver && <span>Good luck!</span>}
-          {win && <span>Winner! Congrats! You did it!</span>}
-          {gameOver && <span>Game over!</span>}
+				{!win && !gameOver && <span>Good luck!</span>}
+				{win && <span>Winner! Congrats! You did it!</span>}
+				{gameOver && <span>Game over!</span>}
       </div>
 		</div>
 	)
+}
+
+Board.propTypes = {
+	data: PropTypes.arrayOf(PropTypes.array).isRequired,
+	score: PropTypes.number.isRequired,
+	onClickNewGame: PropTypes.func.isRequired,
+	win: PropTypes.bool.isRequired,
+	gameOver: PropTypes.bool.isRequired,
 }

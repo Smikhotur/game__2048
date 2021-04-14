@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Tile.scss';
 
 const pickColour = (num) => {
@@ -19,6 +20,7 @@ const pickColour = (num) => {
 }
 
 export const Tile = ({ num }) => {
+	console.log(num)
 	return (
 		<div
 			className='tile'
@@ -31,4 +33,8 @@ export const Tile = ({ num }) => {
 			{num ? num : ''}
 		</div>
 	)
+}
+
+Tile.propTypes = {
+	num: PropTypes.number || null.isRequired,
 }
