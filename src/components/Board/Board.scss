@@ -1,9 +1,11 @@
 .board {
   background: hsl(152, 76%, 80%);
-  padding: 20px;
+  padding: 5px;
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   border-radius: 10px;
   margin-bottom: 25px;
+  margin-left: 5px;
+  margin-right: 5px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
     0 10px 10px rgba(0, 0, 0, 0.22);
     &-body {
