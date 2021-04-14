@@ -42,8 +42,9 @@ export const Board = ({
 				})}
 			</div>
 			<div className="finish">
+				  {!win && !gameOver && <span>Good luck!</span>}
           {win && <span>Winner! Congrats! You did it!</span>}
-          {gameOver && <span>Game over</span>}
+          {gameOver && <span>Game over!</span>}
       </div>
 		</div>
 	)
