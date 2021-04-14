@@ -1,20 +1,20 @@
 body{
+  min-width: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(180, 97%, 25%);
   margin : 0;
   padding: 0;
+  height: 100vh;
 }
 
 .App {
-    background: hsl(180, 97%, 25%);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
-    min-width: 406px;
-
+    min-width: 450px;
     &__contents {
       margin-top: 30px;
     }
